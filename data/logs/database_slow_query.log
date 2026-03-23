@@ -1,0 +1,19 @@
+2026-01-04 09:15:23 [SLOW_QUERY] duration=2.3s query="SELECT * FROM orders WHERE status='pending'" rows=1523
+2026-01-04 09:15:45 [SLOW_QUERY] duration=5.7s query="SELECT o.*, u.name FROM orders o JOIN users u ON o.user_id=u.id WHERE o.created_at > '2026-01-01'" rows=8934
+2026-01-04 09:16:12 [SLOW_QUERY] duration=12.4s query="SELECT COUNT(*) FROM transactions WHERE date BETWEEN '2025-01-01' AND '2026-01-01'" rows=1
+
+2026-01-04 09:17:00 [ERROR] Deadlock detected
+Query 1: UPDATE inventory SET quantity=quantity-1 WHERE product_id=789 (connection_id=145)
+Query 2: UPDATE inventory SET quantity=quantity-1 WHERE product_id=790 (connection_id=167)
+Conflicting locks on table: inventory
+
+2026-01-04 09:18:22 [SLOW_QUERY] duration=8.9s query="SELECT * FROM products WHERE description LIKE '%laptop%'" rows=452
+2026-01-04 09:19:05 [WARNING] Table scan detected: products (3.2M rows scanned)
+2026-01-04 09:19:30 [SLOW_QUERY] duration=15.2s query="SELECT p.*, c.name as category FROM products p LEFT JOIN categories c ON p.category_id=c.id ORDER BY p.created_at DESC" rows=25000
+
+2026-01-04 09:20:10 [ERROR] Connection pool saturation: 100/100 connections active
+2026-01-04 09:20:11 [ERROR] Query timeout: exceeded 10s limit
+Query: "SELECT u.*, COUNT(o.id) as order_count FROM users u LEFT JOIN orders o ON u.id=o.user_id GROUP BY u.id HAVING order_count > 10"
+
+2026-01-04 09:21:00 [SLOW_QUERY] duration=7.8s query="DELETE FROM audit_logs WHERE created_at < '2025-06-01'" rows=523489
+2026-01-04 09:22:15 [WARNING] Lock wait timeout exceeded: table=orders, duration=50s

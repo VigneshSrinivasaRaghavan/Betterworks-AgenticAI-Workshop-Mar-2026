@@ -1,0 +1,37 @@
+Feature: Payment Checkout Process
+
+User Story:
+As a customer, I want to securely complete my purchase using my preferred payment method so that I can receive my ordered items.
+
+Acceptance Criteria:
+
+1. Payment Method Selection
+   - Given I'm on the checkout page
+   - When I view payment options
+   - Then I should see Credit Card, Debit Card, UPI, and Net Banking options
+
+2. Credit Card Payment
+   - Given I select Credit Card payment
+   - When I enter valid card details (number, CVV, expiry, name)
+   - Then the payment should be processed successfully
+   - And I should receive an order confirmation email
+   - And order status should show "Payment Confirmed"
+
+3. Payment Failure Handling
+   - Given I enter invalid card details
+   - When I click "Pay Now"
+   - Then I should see error message "Payment failed. Please check your card details"
+   - And I should be able to retry payment
+   - And order should remain in "Payment Pending" status
+
+4. Timeout Handling
+   - Given payment gateway takes more than 30 seconds
+   - When timeout occurs
+   - Then I should see "Payment timeout. Please try again"
+   - And amount should not be deducted from my account
+
+5. Security Requirements
+   - Card details must be encrypted during transmission
+   - CVV should not be stored in database
+   - Payment page must use HTTPS
+   - Session must expire after 15 minutes of inactivity

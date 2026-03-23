@@ -1,0 +1,21 @@
+2026-01-04 14:15:23 GET /api/v1/users/123 200 45ms user_agent="Mozilla/5.0" ip="192.168.1.100"
+2026-01-04 14:15:24 POST /api/v1/orders 201 120ms user_agent="Mobile-App/2.1" ip="192.168.1.101"
+2026-01-04 14:15:25 GET /api/v1/products 200 78ms user_agent="PostmanRuntime/7.26" ip="192.168.1.102"
+
+2026-01-04 14:16:01 POST /api/v1/auth/login 401 12ms error="Invalid credentials" ip="203.45.67.89"
+2026-01-04 14:16:02 POST /api/v1/auth/login 401 15ms error="Invalid credentials" ip="203.45.67.89"
+2026-01-04 14:16:03 POST /api/v1/auth/login 401 10ms error="Invalid credentials" ip="203.45.67.89"
+2026-01-04 14:16:04 POST /api/v1/auth/login 429 5ms error="Too many login attempts" ip="203.45.67.89"
+
+2026-01-04 14:17:12 GET /api/v1/orders/999999 404 8ms error="Order not found" ip="192.168.1.105"
+2026-01-04 14:17:45 POST /api/v1/checkout 422 25ms error="Validation failed: card_number is invalid" ip="192.168.1.106"
+
+2026-01-04 14:18:00 POST /api/v1/payments 500 5023ms error="Internal server error" ip="192.168.1.107"
+2026-01-04 14:18:10 POST /api/v1/payments 500 5015ms error="Internal server error" ip="192.168.1.108"
+2026-01-04 14:18:20 POST /api/v1/payments 500 5030ms error="Internal server error" ip="192.168.1.109"
+
+2026-01-04 14:19:05 GET /api/v1/dashboard 503 3ms error="Service temporarily unavailable" ip="192.168.1.110"
+2026-01-04 14:19:06 GET /api/v1/reports 503 2ms error="Service temporarily unavailable" ip="192.168.1.111"
+
+2026-01-04 14:20:15 DELETE /api/v1/users/456 403 18ms error="Insufficient permissions" ip="192.168.1.112"
+2026-01-04 14:21:30 GET /api/v1/admin/logs 401 5ms error="Unauthorized access" ip="198.51.100.45"

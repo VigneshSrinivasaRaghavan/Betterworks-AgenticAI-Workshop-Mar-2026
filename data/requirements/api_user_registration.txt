@@ -1,0 +1,64 @@
+API Endpoint: User Registration
+
+Endpoint: POST /api/v1/users/register
+Content-Type: application/json
+
+Request Body:
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!",
+  "mobile": "+1234567890",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+Functional Requirements:
+
+1. Valid Registration
+   - Given all required fields are provided with valid data
+   - When POST request is sent
+   - Then response status should be 201 Created
+   - And response should contain userId and authToken
+   - And confirmation email should be sent
+
+2. Duplicate Email Validation
+   - Given email already exists in system
+   - When registration request is sent
+   - Then response status should be 409 Conflict
+   - And error message should be "Email already registered"
+
+3. Password Validation
+   - Password must be minimum 8 characters
+   - Must contain at least 1 uppercase letter
+   - Must contain at least 1 number
+   - Must contain at least 1 special character
+   - If validation fails, return 400 Bad Request with specific error
+
+4. Mobile Number Validation
+   - Must be valid international format
+   - Must be unique (no duplicate mobile numbers)
+   - If invalid, return 400 Bad Request
+
+5. Rate Limiting
+   - Maximum 5 registration attempts per IP per hour
+   - If exceeded, return 429 Too Many Requests
+
+6. Email Format Validation
+   - Must be valid email format
+   - If invalid, return 400 Bad Request with "Invalid email format"
+
+Expected Success Response (201):
+{
+  "userId": "usr_123456",
+  "authToken": "eyJhbGc...",
+  "message": "Registration successful. Please verify your email."
+}
+
+Expected Error Response (400):
+{
+  "error": "Validation failed",
+  "details": [
+    "Password must contain at least 1 uppercase letter",
+    "Mobile number format is invalid"
+  ]
+}
