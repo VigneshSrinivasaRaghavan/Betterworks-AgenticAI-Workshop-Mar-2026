@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from google import genai
 from ollama import Client as OllamaClient
+from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_community.llms import Ollama
 
 # Load .env
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
@@ -69,3 +72,14 @@ def _call_ollama(messages: List[Message]) -> str:
         raise RuntimeError("Ollama returned empty response. Is Ollama running?")
     return response.message.content
 
+
+# Langchain version of making call to LLM
+def get_langchain_llm():
+    if PROVIDER == 'openai':
+        return ChatOpenAI(model=MODEL,temperature=0,api_key=OPENAI_API_KEY)
+    elif PROVIDER == 'google':
+        return ChatGoogleGenerativeAI(model=MODEL,temperature=0,api_key=GOOGLE_API_KEY)
+    elif PROVIDER == 'ollama':
+        return Ollama(model=MODEL,temperature=0,base_url=OLLAMA_HOST)
+    else:
+        raise ValueError(f"Unsupported provider: {PROVIDER}")
