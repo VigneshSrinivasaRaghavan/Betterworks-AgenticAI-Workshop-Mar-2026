@@ -75,3 +75,23 @@ def search_vector_store(query: str, top_k: int = 3):
     results = vector_store.similarity_search_with_score(query, k=top_k)
 
     return results
+
+
+def load_memory_store(collection_name: str):
+    """Load or create a ChromaDB collection for long-term memory.
+
+    Separate from the RAG vector store — this is where agent outputs
+    are stored and retrieved across sessions.
+    """
+    memory_dir = ROOT / "data" / "memory" / collection_name
+    memory_dir.mkdir(parents=True, exist_ok=True)
+    
+    return Chroma(
+        persist_directory=str(memory_dir),
+        embedding_function=embeddings,
+        # hnsw:space = distance formula ChromaDB uses internally to compare vectors
+        # "cosine" measures angle between vectors (ignores length, only cares about direction)
+        # Best for text — a short and long sentence on the same topic still match correctly
+        # Score 0 = perfect match, 1 = unrelated → relevance = 1 - score (clean 0-1 range)
+        collection_metadata={"hnsw:space": "cosine"}
+    )

@@ -2,9 +2,6 @@ from typing import TypedDict, Dict, List
 
 class LogAnalyzerState(TypedDict):
     log_content: str
-    user_instruction: str
-    conversation_history: List[Dict]
-    past_incidents: str
     retrieved_context: str
     analysis_text: str
     analysis_json: Dict
