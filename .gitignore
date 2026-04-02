@@ -34,3 +34,4 @@ outputs/
 data/vector_store/
 .chroma/
 chroma.sqlite3
+.playwright-mcp/

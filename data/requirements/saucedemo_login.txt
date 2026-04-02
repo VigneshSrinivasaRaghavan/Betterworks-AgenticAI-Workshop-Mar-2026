@@ -1,0 +1,52 @@
+Feature: Login Page — Swag Labs (https://www.saucedemo.com/)
+
+User Story:
+As a user, I want to log in to the Swag Labs demo store so that I can access the product catalog and place orders.
+
+Target URL: https://www.saucedemo.com/
+
+Test Credentials:
+- Valid username: standard_user | Valid password: secret_sauce
+- Locked out username: locked_out_user | Password: secret_sauce
+- Invalid username: invalid_user | Invalid password: wrong_password
+
+Acceptance Criteria:
+
+1. Happy Path — Valid Login
+   - Given I am on the login page
+   - When I enter username "standard_user" and password "secret_sauce"
+   - And I click the Login button
+   - Then I should be redirected to the products page
+   - And the page should show "Products"
+
+2. Error Case — Wrong Password
+   - Given I am on the login page
+   - When I enter username "standard_user" and an incorrect password "wrongpass"
+   - And I click the Login button
+   - Then I should remain on the login page
+   - And an error message should appear: "Username and password do not match any user in this service"
+
+3. Error Case — Wrong Username
+   - Given I am on the login page
+   - When I enter an invalid username "invalid_user" and password "secret_sauce"
+   - And I click the Login button
+   - Then I should remain on the login page
+   - And an error message should appear: "Username and password do not match any user in this service"
+
+4. Error Case — Empty Username
+   - Given I am on the login page
+   - When I leave the username field empty and enter password "secret_sauce"
+   - And I click the Login button
+   - Then an error message should appear: "Username is required"
+
+5. Error Case — Empty Password
+   - Given I am on the login page
+   - When I enter username "standard_user" and leave the password field empty
+   - And I click the Login button
+   - Then an error message should appear: "Password is required"
+
+6. Error Case — Both Fields Empty
+   - Given I am on the login page
+   - When I leave both username and password fields empty
+   - And I click the Login button
+   - Then an error message should appear: "Username is required"
